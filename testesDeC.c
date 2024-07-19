@@ -36,7 +36,7 @@ void* pBuffer;   //ATENÇÃO REALLOC
 int main(){
 printf("Agenda pBuffer\n");
     
-pBuffer = (void*) malloc(sizeof(int*)*3 + sizeof(void*)*2);
+pBuffer = (void*) malloc(sizeof(int*)*3 + sizeof(void**)*2);
 if (pBuffer == NULL) {
         printf("Erro ao alocar memória.\n");
         return 1;
@@ -57,15 +57,33 @@ if (pBuffer == NULL) {
 
 void** nodo = criaNodo();
 //nodo é um endereço que aponta pra vários outros
-void** novoNodo = (void**) pBuffer+ 3; //+ contador;
+//void** novoNodo = (void**) pBuffer+ 3; //+ contador;
+
+//*novoNodo = nodo;
+void** novoNodo = (pBuffer + sizeof(int*)*3);
 *novoNodo = nodo;
-//printf("%d", *((int*)novoNodo[1]));
- void** recup =  pBuffer+ 3;
-printf("%d", *((int*)recup[1]));
- 
+printf("%p\n", novoNodo);
+printf("%p\n", nodo);
+printf("%p\n", *novoNodo);
+printf("%p\n", (pBuffer + sizeof(int*)*3));
+
+printf("\n\n%d", *((int*)nodo[1])); //printa o nodo
+
+void** recup =(pBuffer + sizeof(int*)*3);
+printf("\n\n%d", *((int*)recup[1])); 
+//(pBuffer + sizeof(int*)*3) = nodo;
+
+//printf("%d", *((int*)nodo[1])); //printa o nodo
+//void** recup = (pBuffer + sizeof(int*)*3);
+
+//printf("%d", *((int*)nodo[1]));
+
+//printf("%d", *((int*)recup[1]));
+
+
+
 // printf("%d", *((*int) (recup[1])) );
 //printf("%d", *( (int*) recup[1] ) );
-//printf("%d", *((int*)nodo[1])); //printa o nodo
 
 
 //printf("%d", *nodo[1]);
